@@ -12,7 +12,7 @@
 <body>
   <main class="container">
     <h1>Emotion Kids</h1>
-    <p class="status" id="statusHome">Pilih level untuk mulai.</p>
+    <p class="status">Pilih level untuk mulai.</p>
 
     <div class="topbar">
       <div class="field">
@@ -45,32 +45,25 @@
       const sesi = (document.getElementById("sesiInput").value || "S1").trim();
       localStorage.setItem("ek_nama", nama);
       localStorage.setItem("ek_sesi", sesi);
-      const st = document.getElementById("statusHome");
-      if (st) st.textContent = `Siap ya, ${nama} (${sesi}). Pilih levelnya.`;
     }
 
     function goLevel(level) {
       saveProfile();
-      window.location.href = `levels/level${level}.html`;
+      window.location.href = `level.html?level=${level}`;
     }
 
     function goRekap() {
       saveProfile();
-      window.location.href = "rekap/rekap.html";
-      // Kalau kamu belum punya rekap.html, sementara ganti ke:
-      // window.location.href = "rekap.html";
+      window.location.href = "rekap.html";
     }
 
-    (function init() {
+    // isi otomatis dari localStorage
+    (function init(){
       const nama = localStorage.getItem("ek_nama");
       const sesi = localStorage.getItem("ek_sesi");
       if (nama) document.getElementById("namaInput").value = nama;
       if (sesi) document.getElementById("sesiInput").value = sesi;
-
-      // auto update status kalau sudah pernah isi
-      if (nama || sesi) saveProfile();
     })();
   </script>
 </body>
 </html>
-
