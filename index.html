@@ -1,1 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Emotion Kids</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <main class="container">
+    <h1>Emotion Kids</h1>
+    <p class="status" id="statusHome">Pilih level untuk mulai.</p>
+
+    <div class="topbar">
+      <div class="field">
+        <div class="label">Nama Anak</div>
+        <input id="namaInput" class="input" value="A01" />
+      </div>
+      <div class="field">
+        <div class="label">Sesi</div>
+        <input id="sesiInput" class="input" value="S1" />
+      </div>
+    </div>
+
+    <div class="levelGrid">
+      <button class="btnPrimary" onclick="goLevel(1)">Level 1</button>
+      <button class="btnPrimary" onclick="goLevel(2)">Level 2</button>
+      <button class="btnPrimary" onclick="goLevel(3)">Level 3</button>
+      <button class="btnPrimary" onclick="goLevel(4)">Level 4</button>
+      <button class="btnPrimary" onclick="goLevel(5)">Level 5</button>
+      <button class="btnPrimary" onclick="goLevel(6)">Level 6</button>
+    </div>
+
+    <div class="nav2">
+      <button class="btnGhost" onclick="goRekap()">Lihat Rekap</button>
+    </div>
+  </main>
+
+  <script>
+    function saveProfile() {
+      const nama = (document.getElementById("namaInput").value || "A01").trim();
+      const sesi = (document.getElementById("sesiInput").value || "S1").trim();
+      localStorage.setItem("ek_nama", nama);
+      localStorage.setItem("ek_sesi", sesi);
+      const st = document.getElementById("statusHome");
+      if (st) st.textContent = `Siap ya, ${nama} (${sesi}). Pilih levelnya.`;
+    }
+
+    function goLevel(level) {
+      saveProfile();
+      window.location.href = `levels/level${level}.html`;
+    }
+
+    function goRekap() {
+      saveProfile();
+      window.location.href = "rekap/rekap.html";
+      // Kalau kamu belum punya rekap.html, sementara ganti ke:
+      // window.location.href = "rekap.html";
+    }
+
+    (function init() {
+      const nama = localStorage.getItem("ek_nama");
+      const sesi = localStorage.getItem("ek_sesi");
+      if (nama) document.getElementById("namaInput").value = nama;
+      if (sesi) document.getElementById("sesiInput").value = sesi;
+
+      // auto update status kalau sudah pernah isi
+      if (nama || sesi) saveProfile();
+    })();
+  </script>
+</body>
+</html>
 
